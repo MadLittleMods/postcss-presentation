@@ -48,6 +48,7 @@
 		}
 		.current-fragment.current-visible-hide {
 			display: inherit;
+			flex-direction: column;
 		}
 
 		.fragment-flex-expand {
@@ -134,9 +135,11 @@
 					You can follow along [here](https://madlittlemods.github.io/postcss-presentation/): `https://madlittlemods.github.io/postcss-presentation/`
 					</div>
 
-					<div style="max-height: 75vh;" data-markdown>
-					![Philosopher’s stone, logo of PostCSS](http://postcss.github.io/postcss/logo.svg)
-					</div>
+					<img
+						src="http://postcss.github.io/postcss/logo.svg"
+						alt="Philosopher’s stone, logo of PostCSS"
+						style="flex: 1;"
+					>
 				</section>
 
 				<section>
@@ -160,12 +163,24 @@
 					### But how?
 					</div>
 
-					<div class="fragment current-visible-hide" data-markdown>
+					<div class="fragment current-visible-hide fragment-flex-expand">
+						<div data-markdown>
 						PostCSS parses your styles into a tree
-						![Original source: http://www.laregionalagency.us/wp-content/uploads/2015/07/Oack_Tree_PNG_Clipart_Picture.png](http://i.imgur.com/Xp8hVY4.jpg)
+						</div>
+
+						<div
+							style="
+							flex: 1;
+							background-image: url('http://i.imgur.com/zetFhbS.png');
+							background-size: contain;
+							background-repeat: no-repeat;
+							background-position: center;
+							"
+							alt="Original source: http://www.laregionalagency.us/wp-content/uploads/2015/07/Oack_Tree_PNG_Clipart_Picture.png"
+						></div>
 					</div>
 
-					<div class="fragment" data-markdown>
+					<div class="fragment current-visible-hide" data-markdown>
 						 1. Converts your CSS into an AST tree representing your styles *(think: a JS object {} with properties)*
 						 1. Plugins you choose, modify the tree
 						 1. Stringify back to CSS
