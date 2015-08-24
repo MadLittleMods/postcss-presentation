@@ -17,13 +17,15 @@ Presentation powered by [reveal.js](https://github.com/hakimel/reveal.js)
 
 Just view the [presentation online with GitHub pages](http://madlittlemods.github.io/postcss-presentation/)
 
+You can press `S` key to launch the speaker view. This window has the speaker notes, time, etc
+
+Use the left/right/up/down arrow keys to navigate the slides
+
+
 ## Serve it offline:
 
 Serve the project directory (using something like [`serve`](https://www.npmjs.com/package/serve)) and visit the `index.html`
 
-You can press `S` key to launch the speaker view. This window has the speaker notes, time, etc
-
-Use the left/right/up/down arrow keys to navigate the slides
 
 
 
