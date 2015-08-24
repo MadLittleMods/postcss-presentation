@@ -7,13 +7,17 @@ Interactive PostCSS presentation to introduce PostCSS to my coworkers.
 Presentation powered by [reveal.js](https://github.com/hakimel/reveal.js)
 
 
-## Latest Version: v0.1.0
+## Latest Version: v0.1.1
 
 ### [Changelog](https://github.com/MadLittleMods/postcss-presentation/blob/master/CHANGELOG.md)
 
 
 
 # Presenter Instructions
+
+Just view the [presentation online with GitHub pages](http://madlittlemods.github.io/postcss-presentation/)
+
+## Serve it offline:
 
 Serve the project directory (using something like [`serve`](https://www.npmjs.com/package/serve)) and visit the `index.html`
 
