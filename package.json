@@ -1,0 +1,48 @@
+{
+  "name": "postcss-presentation",
+  "version": "0.1.0",
+  "description": "PostCSS presentation to introduce PostCSS to my coworkers",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcssplugin"
+  ],
+  "author": "Eric Eastwood <contact@ericeastwood.com> (http://ericeastwood.com/)",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MadLittleMods/postcss-presentation.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-standalone": "webpack",
+    "build-standalone-dev": "webpack --watch --progress"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.22",
+    "babel-loader": "^5.3.2",
+    "bluebird": "^2.9.34",
+    "json-loader": "^0.5.2",
+    "postcss-canadian-stylesheets": "0.0.1",
+    "webpack": "^1.11.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^5.2.0",
+    "cssnano": "^2.6.1",
+    "lodash.debounce": "^3.1.1",
+    "lodash.throttle": "^3.0.4",
+    "object-assign": "^4.0.1",
+    "postcss": "^5.0.2",
+    "postcss-browser-reporter": "^0.3.0",
+    "postcss-calc": "^4.1.0",
+    "postcss-css-variables": "^0.4.0",
+    "postcss-increase-specificity": "^0.2.2",
+    "postcss-nested": "^1.0.0",
+    "postcss-plugin-context": "^1.2.0",
+    "postcss-safe-parser": "^1.0.0",
+    "postcss-simple-vars": "^1.0.0",
+    "postcss-sprites": "^1.0.9",
+    "strip-indent": "^1.0.1"
+  }
+}

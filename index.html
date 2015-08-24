@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/blood.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<script src="dist/build.js"></script>
+
+		<style>
+		body {
+			tab-size: 4;
+		}
+
+		/* A fragment helper to completely hide a fragment when not active
+		 * https://github.com/hakimel/reveal.js#fragments */
+		.current-visible-hide,
+		.fragment-flex-expand.current-visible-hide {
+			display: none;
+		}
+		.current-fragment.current-visible-hide {
+			display: inherit;
+		}
+
+		.fragment-flex-expand {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+		}
+
+
+
+		.reveal .slides {
+			text-align: left;
+		}
+
+		/* Top-level slides */
+		.reveal .slides > section.present {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+
+		.reveal .progress:after {
+			display: none;
+		}
+
+		.reveal blockquote {
+			padding: 20px;
+
+			text-align: left;
+		}
+
+		.reveal ul {
+			margin-bottom: 0.25em;
+		}
+		.reveal li {
+			line-height: 1.4;
+		}
+
+
+		.sandbox-wrapper {
+			flex: 1;
+			display: flex;
+
+			box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+		}
+
+		.sandbox-script {
+			flex: 1;
+			overflow: auto;
+			display: block;
+
+			padding: 3px;
+
+			background: #3f3f3f;
+			border: 0;
+
+			color: inherit;
+			font-size: 18px;
+			font-family: monospace;
+			text-align: left;
+			white-space: pre;
+
+		}
+
+		.sandbox-frame {
+			flex: 1;
+
+			background: #303030;
+		}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<div data-markdown>
+					# PostCSS
+					</div>
+					
+					<div style="max-height: 75vh;" data-markdown>
+					![Philosopher’s stone, logo of PostCSS](http://postcss.github.io/postcss/logo.svg)
+					</div>
+				</section>
+
+				<section>
+					<div data-markdown>
+					## So what does PostCSS do?
+					</div>
+					
+					<div data-markdown>
+						> PostCSS can do the same work as preprocessors like Sass, Less, and Stylus.
+						>
+						> But PostCSS is modular, 3-30 times faster, and much more powerful.
+						>
+						> [* -- PostCSS readme intro paragraph*](https://github.com/postcss/postcss)
+					</div>
+
+				</section>
+
+			
+				<section>
+					<div data-markdown>
+					### But how?
+					</div>
+
+					<div class="fragment current-visible-hide" data-markdown>
+						PostCSS parses your styles into a tree
+						![Original source: http://www.laregionalagency.us/wp-content/uploads/2015/07/Oack_Tree_PNG_Clipart_Picture.png](http://i.imgur.com/Xp8hVY4.jpg)
+					</div>
+
+					<div class="fragment" data-markdown>
+						 1. Converts your CSS into an AST tree representing your styles *(think: a JS object {} with properties)*
+						 1. Plugins you choose, modify the tree
+						 1. Stringify back to CSS
+
+						Neat fact:
+						> This is a lossless process
+						> What goes in, comes out
+						> *(assuming you don't modify the tree)*
+					</div>
+
+					<aside class="notes" data-markdown>
+						Okay, but really it makes an AST tree that represents your CSS,
+						you then can choose to modify that tree with plugins,
+						and then PostCSS stringifies the tree back to CSS
+
+						Another cool feature is that running your code through PostCSS, without plugins, will produce the exact same file on the output. This includes whitespace, browser hacks, etc.
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<div data-markdown>
+							### Some benefits
+
+							 - Modular
+								 - Use only what you need
+								 - Easier to reason about
+									 - Easier to contribute
+								 - Easier to isolate, debug, and write tests
+							 - Runs in the browser
+							 - Easy to develop plugins, just JS
+								 - I have developed and released a [couple of plugins](https://www.npmjs.com/~mlm)
+						</div>
+
+						<aside class="notes">
+							This modular approach of plugins and functionality has many benefits.
+							(read list)
+							 - Use only what you need. This means you can as vanilla CSS as you want
+							 - Easier to reason about
+								 - Easier to contribute
+							 - Easier to isolate, debug and test
+							 - You can also run it in the browser client-side. This makes it possible to set up playgrounds, sandboxes, and even this presentation with live code examples.
+							 - Easy to develop plugins, just JS. I have developed and released a [couple of plugins](https://www.npmjs.
+						</aside>
+					</section>
+
+
+					<section data-markdown>
+						 - [Source maps](https://github.com/postcss/postcss#source-map)
+						 - [800k+ downloads](http://npm-stat.com/charts.html?package=postcss) per month!
+							 - [![NPM](https://nodei.co/npm/postcss.png?downloads=true)](https://nodei.co/npm/postcss/)
+						 - [Awesome documentation and guides](https://github.com/postcss/postcss)
+						 - Community support
+							 - [Gitter chat room](https://gitter.im/postcss/postcss): `https://gitter.im/postcss/postcss`
+							 - [@PostCSS](https://twitter.com/PostCSS) on Twitter
+							 - GitHub issues
+					</section>
+				</section>
+				
+				
+				<section>
+					
+					<div class="fragment" data-markdown>
+						### *Soooo*
+					</div>
+
+					<div class="fragment" data-markdown>
+						### *what about those plugins...*
+					</div>
+
+					<aside class="notes" data-markdown>
+						So,
+						What about these plugins and what can they do?
+
+						The following demos are live code sandboxes. If you have any comments or questions on how stuff works, please speak up :)
+					</aside>
+				</section>
+
+				<section>
+					
+					<div data-markdown>
+						##### Nesting and Parent reference
+						#### [`postcss-nested`](https://github.com/postcss/postcss-nested)
+					</div>
+
+					<textarea class="sandbox-script">
+						'use strict';
+						let postcss = window.postcss;
+						let nested = window.postcssPlugins['postcss-nested'];
+
+						let mycss = stripIndentTag`
+							.list {
+								background: #444;
+
+								& > .list-item {
+									opacity: 0.5;
+								}
+
+								&:hover > .list-item,
+								&:focus > .list-item {
+									opacity: 1;
+								}
+							}
+
+							.list-item {
+								color: #eee;
+							}
+						`;
+
+						var output = postcss([
+								nested()
+							])
+							.process(mycss)
+							.css;
+
+						return output;
+					</textarea>
+
+					<aside class="notes" data-markdown>
+						Well, you are probably familiar with this at-symbol from Sass or Stylus that you can use to reference and output the outer selector.
+
+						In PostCSS, this is just one of many plugins you can use.
+					</aside>
+				</section>
+
+				<section>
+					
+					<div data-markdown>
+						##### Variables
+					</div>
+
+					<div
+						class="fragment current-visible-hide fragment-flex-expand"
+					>
+						<div data-markdown>
+							#### [`postcss-simple-vars`](https://github.com/postcss/postcss-simple-vars)
+						</div>
+
+						<textarea class="sandbox-script">
+							'use strict';
+							let postcss = window.postcss;
+							let vars = window.postcssPlugins['postcss-simple-vars'];
+
+							let mycss = stripIndentTag`
+								$blue: #056ef0;
+								$column: 200px;
+
+								.menu {
+									width: calc(4 * $column);
+								}
+
+								.menu_link {
+									background: $blue;
+									width: $column;
+								}
+							`;
+
+							var output = postcss([
+									vars()
+								])
+								.process(mycss)
+								.css;
+
+							return output;
+						</textarea>
+					</div>
+
+					<div
+						class="fragment current-visible-hide fragment-flex-expand"
+					>
+						<div data-markdown>
+							#### [`postcss-css-variables`](https://github.com/MadLittleMods/postcss-css-variables)
+						</div>
+
+						<textarea class="sandbox-script">
+							'use strict';
+							let postcss = window.postcss;
+							let cssvariables = window.postcssPlugins['postcss-css-variables'];
+
+							let mycss = stripIndentTag`
+								:root {
+									--box-width: 100px;
+								}
+
+								@media (min-width: 500px) {
+									:root {
+										--box-width: 200px;
+									}
+								}
+
+								@media (min-width: 1000px) {
+									:root {
+										--box-width: 300px;
+									}
+								}
+
+
+								section {
+									width: calc(3 * var(--box-width));
+								}
+
+								section {
+									display: inline-block;
+									width: var(--box-width);
+									height: var(--box-width);
+								}
+							`;
+
+							var output = postcss([
+									cssvariables()
+								])
+								.process(mycss)
+								.css;
+
+							return output;
+						</textarea>
+
+
+					</div>
+
+					<aside class="notes" data-markdown>
+						PostCSS has multiple variable plugins to choose from.
+
+						`postcss-simple-vars` provides a syntax that you are probably familiar with if coming from Sass. Just some basic value replacement.
+
+						`postcss-css-variables` is a bit more complex in terms of the logic it can handle. It will expand any dependent variables whenever a variable changes, so you can change the value in a media query and the rest of the components will have an updated declaration. It also uses the CSS4 Custom Properties specification so most of your code will be future proof. There is some caveats there because we only work off the explicit DOM structure we can assume from the CSS but for the most part, it has great parity to the real thing.
+					</aside>
+				</section>
+			
+				
+				<section>
+					<div data-markdown>
+						##### Reduce `calc` whenever possible
+						#### [`postcss-calc`](https://github.com/postcss/postcss-calc)
+					</div>
+
+					
+					<textarea class="sandbox-script">
+						'use strict';
+						let postcss = window.postcss;
+
+						let cssvariables = window.postcssPlugins['postcss-css-variables'];
+						let calc = window.postcssPlugins['postcss-calc'];
+
+						let mycss = stripIndentTag`
+							:root {
+								--box-width: 100px;
+							}
+
+							@media (min-width: 500px) {
+								:root {
+									--box-width: 200px;
+								}
+							}
+
+							@media (min-width: 1000px) {
+								:root {
+									--box-width: 300px;
+								}
+							}
+
+
+							section {
+								width: calc(3 * var(--box-width));
+							}
+
+							section {
+								display: inline-block;
+								width: var(--box-width);
+								height: var(--box-width);
+							}
+						`;
+
+						var output = postcss([
+								cssvariables(),
+								calc()
+							])
+							.process(mycss)
+							.css;
+
+						return output;
+					</textarea>
+
+					<aside class="notes" data-markdown>
+						So looking back at those variable plugin examples, wouldn't it be nice if we could reduce those `calc` functions if possible.
+
+						I mean `3 * 100px` could easily be `300px` and this would eliminate some CPU cycles probably. 
+					</aside>
+				</section>
+
+
+				<section>
+					
+					<div data-markdown>
+						##### Error reporting when the build fails
+						#### [`postcss-browser-reporter`](https://github.com/postcss/postcss-browser-reporter)
+					</div>
+
+					<textarea class="sandbox-script">
+						'use strict';
+						let postcss = window.postcss;
+						let reporter = window.postcssPlugins['postcss-browser-reporter'];
+						let autoprefixer = window.postcssPlugins['autoprefixer'];
+
+						let mycss = stripIndentTag`
+							.foo {
+								background: #f00 !important;
+							}
+
+							.bar {
+								background: #0f0 !important;
+							}
+						`;
+
+						var output = postcss([
+								// Custom plugin to discourage use of `!important`
+								postcss.plugin('PLUGIN_NAME', function (opts) {
+									return function (css, result) {
+										css.walkDecls(function (decl) {
+											if ( decl.important ) {
+												result.warn('Try to avoid !important', { node: decl });
+											}
+										});
+									};
+								}),
+								reporter()
+							])
+							.process(mycss)
+							.css;
+
+						return output;
+					</textarea>
+
+					<aside class="notes" data-markdown>
+						Can we make recognizing when the build fails easier? Looking back at the console isn't always at the top of our mind and you wonder why your new styles are not showing up on the page.
+
+						A red box on the web page when the build fails would be a great indicator.
+					</aside>
+				</section>
+
+
+				<section>
+					
+					<div data-markdown>
+						##### Only apply plugins to certain portions of CSS
+						#### [`postcss-plugin-context`](https://github.com/postcss/postcss-plugin-context)
+					</div>
+
+					<textarea class="sandbox-script">
+						'use strict';
+						let postcss = window.postcss;
+
+						let context = window.postcssPlugins['postcss-plugin-context'];
+						let increaseSpecificity = window.postcssPlugins['postcss-increase-specificity'];
+
+						let mycss = stripIndentTag`
+							@context increaseSpecificity {
+								body {
+									color: #eee;
+									background-color: salmon;
+								}
+
+								div {
+									color: #f00;
+								}
+							}
+
+							p {
+								color: #ff0;
+							}
+						`;
+
+						var output = postcss([
+								context({
+									increaseSpecificity: increaseSpecificity(/*options*/)
+								})
+							])
+							.process(mycss)
+							.css;
+
+						return output;
+					</textarea>
+
+					<aside class="notes" data-markdown>
+						So what if you want to increase the specificity of only a certain area of styles.
+
+						`postcss-plugin-context` makes this simple to do. In this example I am appling 'postcss-increase-specificity' plugin to only the `body` and `div rules while the `p` rule is left alone.
+					</aside>
+				</section>
+
+				<section>
+					
+					<div data-markdown>
+						##### Minify CSS *(to the max!)*
+						#### [`cssnano`](http://cssnano.co/)
+					</div>
+
+					<textarea class="sandbox-script">
+						'use strict';
+						let postcss = window.postcss;
+
+						let context = window.postcssPlugins['postcss-plugin-context'];
+						let cssnano = window.postcssPlugins['cssnano'];
+
+						let mycss = stripIndentTag`
+							h1::before, h1:before {
+								margin: 10px 20px 10px 20px;
+								color: #ff0000;
+								-webkit-border-radius: 16px;
+								border-radius: 16px;
+								font-weight: normal;
+								font-weight: normal;
+							}
+							/* invalid placement */
+							@charset "utf-8";
+						`;
+
+						var output = postcss([
+								cssnano()
+							])
+							.process(mycss)
+							.css;
+
+						return output;
+					</textarea>
+
+					<aside class="notes" data-markdown>
+						`cssnano` includes a myriad of optimizations like removing empty rules, discard duplicate rules, whitespace cleanup, and optimizing selectors. There are many more that you can read about on the [`cssnano` site](http://cssnano.co/optimisations/)
+
+						Maybe don't use in production as it can break some things and strips out everything except what is supported on the bleeding edge.
+
+					</aside>
+				</section>
+
+				<section>
+					
+					<div data-markdown>
+						##### Autoprefixer
+						#### [`autoprefixer`](https://github.com/postcss/autoprefixer)
+					</div>
+
+					<textarea class="sandbox-script">
+						'use strict';
+						let postcss = window.postcss;
+
+						let autoprefixer = window.postcssPlugins['autoprefixer'];
+
+						let mycss = stripIndentTag`
+							:fullscreen a {
+								display: flex
+							}
+						`;
+
+						var output = postcss([
+								autoprefixer()
+							])
+							.process(mycss)
+							.css;
+
+						return output;
+					</textarea>
+
+					<aside class="notes" data-markdown>
+						I think many of you are familiar with Autoprefixer, it adds vendor prefixes to your styles according to browser support you specify.
+
+						This means you can forget about adding and updating these manually and everything still works everywhere.
+					</aside>
+				</section>
+
+
+				<section>
+					<div data-markdown>
+						##### Sprite images
+						#### [`postcss-sprites`](https://github.com/2createStudio/postcss-sprites)
+
+						```css
+						.arrows {
+							background-image: url(images/sprite/arrows.png);
+						}
+						.logo {
+							background-image: url(images/sprite/logo.png);
+						}
+						```
+
+						```css
+						.arrows {
+							background-image: url(images/sprite.png);
+							background-position: 0 0;
+						}
+						.logo {
+							background-image: url(images/sprite.png);
+							background-position: 0 -50px;
+						}
+						```
+					</div>
+
+					<aside class="notes" data-markdown>
+						Automatically sprite images together and replace the reference in CSS. Also awesome because you can just disable the plugin to see your styles without the sprites without manually updating everything again.
+
+						I can't show this one in the browser because it uses the file system API.
+					</aside>
+				</section>
+
+
+				<section>
+					
+					<div data-markdown>
+						##### Lint your CSS
+						#### [`stylelint`](https://github.com/stylelint/stylelint)
+
+						```js
+						'use strict';
+						let postcss = require('postcss');
+
+						let stylelint = require('stylelint');
+						let reporter = require('postcss-reporter');
+
+						let mycss = stripIndentTag`.foo {}`;
+
+						var output = postcss([
+								stylelint({
+									"rules": {
+										"color-no-invalid-hex": 2,
+										"declaration-colon-space-before": [2, "never"],
+										"indentation": [2, "tab"],
+										"number-leading-zero": [2, "always"]
+									}
+								}),
+								reporter({
+									clearMessages: true,
+								})
+							])
+							.process(mycss)
+							.css;
+						```
+					</div>
+
+					<aside class="notes" data-markdown>
+						Linting your CSS to maintain consistency and avoid errors
+					</aside>
+				</section>
+
+				<section>
+					
+					<div data-markdown>
+						### And many more
+
+						Checkout the [plugins section in the readme](https://github.com/postcss/postcss#plugins). 
+
+						
+					</div>
+
+					<aside class="notes" data-markdown>
+						There are ton more plugins in the PostCSS ecosystem. 
+
+						Checkout the [plugins section in the readme](https://github.com/postcss/postcss#plugins). 
+
+						It is packed with feature rich plugins for you to use.
+					</aside>
+				</section>
+
+
+
+				<section>
+					<div data-markdown>
+						### PostCSS 5.x introduces [custom syntaxes](https://github.com/postcss/postcss/blob/master/docs/syntax.md)
+
+						This means PostCSS is flexible enough to support Sass or even [Stylus compact style syntax](https://learnboost.github.io/stylus/docs/css-style.html) *(without brackets or semi-colons)*:
+
+						```css
+						body
+							color #ccc
+							font-size 12px
+							font-family Helvetica, Arial, sans-serif
+
+						a.button
+							background #0f0
+							border-radius 5px
+						```
+					</div>
+
+					<aside class="notes" data-markdown>
+						Now that PostCSS supports custom syntaxes, the sky is the limit.
+
+						We can have single line double slash comments, compact format like Stylus, etc
+					</aside>
+				</section>
+
+				<section>
+					<div data-markdown>
+						### [PostCSS on Codepen](http://codepen.io/pen/)
+
+						[Here is an example pen](http://codepen.io/anon/pen/OVKNQg) that uses [`cssnext`](http://cssnext.io/)
+					</div>
+
+					<aside class="notes" data-markdown>
+						If you want to try out PostCSS without installing anything, Codepen supports PostCSS and uses a plugin similar to the [plugin context plugin](#/9) I talked about earlier to pick and choose.
+					</aside>
+				</section>
+
+				<section>
+					<div data-markdown>
+						### Questions?
+
+						These slides are available at TODO!
+						`url`
+
+						 - Eric Eastwood, [personal site and blog](http://ericeastwood.com/)
+						 - [@MadLittleMods](https://github.com/MadLittleMods) on [GitHub](https://github.com/MadLittleMods), [Twitter](https://twitter.com/MadLittleMods)
+					</div>
+
+					<aside class="notes" data-markdown>
+						Any questions?
+
+						The slides are available on GitHub.
+
+						You can check out what I am up to on [my personal site](http://ericeastwood.com/) or [GitHub](https://github.com/MadLittleMods).
+
+						Thank you :)
+					</aside>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				width: '100%',
+				height: '100%',
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: false,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+
+		<script src="js/taboverride.min.js"></script>
+		<script src="js/sandbox.js"></script>
+
+	</body>
+</html>
